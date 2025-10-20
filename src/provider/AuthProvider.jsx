@@ -7,6 +7,8 @@ const auth = getAuth(app);
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true);
+
 
     console.log("user =>",user);
 
@@ -27,6 +29,7 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
+            setLoading(false)
         })
         return () => {
             unsubscribe()
@@ -37,6 +40,8 @@ const AuthProvider = ({children}) => {
     const authData = {
         user,
         setUser,
+        loading,
+        setLoading,
         createUser,
         logOut,
         logIn,
