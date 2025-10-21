@@ -10,7 +10,7 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
 
-    console.log("user =>",user);
+    // console.log("user =>",user);
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
