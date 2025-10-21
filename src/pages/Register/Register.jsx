@@ -5,11 +5,11 @@ import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
 
-    const {createUser, setUser} = use(AuthContext)
+    const {createUser, setUser, updateUser} = use(AuthContext)
 
     const handleRegister = e => {
         e.preventDefault()
-        const name = e.target.name.value;
+        const displayName = e.target.name.value;
         const photoURL = e.target.photoURL.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
@@ -20,7 +20,12 @@ const Register = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
-            setUser(user)
+            // update user data
+            updateUser({displayName, photoURL})
+            .then(() => {
+                setUser({...user, displayName, photoURL})
+            })
+            .catch(error => console.log(error))
             alert('User Created')
         })
         .catch(error => {
